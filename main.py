@@ -29,7 +29,7 @@ FREE USER
 🎥 HD Quality Videos
 🔐 Secure Access
 ⏰ 24/7 Support
-➡️ /upgrade - Upgrade Plan & More Details
+➡️ /drm - Upgrade Plan & More Details
 """
     await update.message.reply_text(start_message, reply_markup=reply_markup)
 
@@ -82,7 +82,7 @@ Available Services:
 
 # Main Function
 def main():
-    app = ApplicationBuilder().token("YOUR_BOT_TOKEN").build()
+    app = ApplicationBuilder().token("").build()
     
     app.add_handler(CommandHandler("start", start_handler))
     app.add_handler(CommandHandler("drm", drm_handler))
