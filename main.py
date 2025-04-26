@@ -1,8 +1,8 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 # Start Handler
-def start_handler(update: Update, context: CallbackContext):
+async def start_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("Contact Admin", url="https://t.me/courses_hub2_bot")]
     ]
@@ -31,10 +31,10 @@ FREE USER
 ⏰ 24/7 Support
 ➡️ /upgrade - Upgrade Plan & More Details
 """
-    update.message.reply_text(start_message, reply_markup=reply_markup)
+    await update.message.reply_text(start_message, reply_markup=reply_markup)
 
 # DRM Handler
-def drm_handler(update: Update, context: CallbackContext):
+async def drm_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     drm_message = """🌟 DRM BOT 🌟
 ➤ Welcome to Premium DRM Bot!
 
@@ -78,18 +78,16 @@ Available Services:
 - OTT Platforms
 💰 Monthly: ₹800/-
 """
-    update.message.reply_text(drm_message)
+    await update.message.reply_text(drm_message)
 
 # Main Function
 def main():
-    updater = Updater("YOUR_BOT_TOKEN", use_context=True)
-    dp = updater.dispatcher
+    app = ApplicationBuilder().token("YOUR_BOT_TOKEN").build()
     
-    dp.add_handler(CommandHandler("start", start_handler))
-    dp.add_handler(CommandHandler("drm", drm_handler))
+    app.add_handler(CommandHandler("start", start_handler))
+    app.add_handler(CommandHandler("drm", drm_handler))
     
-    updater.start_polling()
-    updater.idle()
+    app.run_polling()
 
 if __name__ == '__main__':
     main()
